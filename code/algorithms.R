@@ -4,48 +4,6 @@
 #   Algorithms   #
 ##################
 
-#-------#
-#  SIS  #
-#-------#
-
-sim_SIS <- function(network_el, beta, gamma, intxn_per_day, days) {
-
-  n = network_el[1,4]
-  e = network_el[1,5]
-  cdata <- network_el[,1:2]
-
-  infection_status <- c(rep(1,n))
-  index_infected <- sample(1:n, 1)
-  infection_status[index_infected] = 2
-
-  day_counter <- 0
-  while(day_counter <= days) {
-
-    int_counter <- 0
-    while(int_counter <= intxn_per_day*n) {
-
-      selected_edge <- sample(1:e,1)
-
-      if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
-        if (beta >= runif(1,0,1)) {
-          infection_status[cdata[selected_edge,1:2]] = 2
-        }
-      }
-
-      int_counter <- sum(int_counter,1)
-    }
-
-    for (j in which(infection_status %in% 2)) {
-      if (gamma >= runif(1,0,1)) {
-        infection_status[j] = 1
-      }
-    }
-    day_counter <- sum(day_counter,1)
-    if (sum(infection_status%%2) == n) break
-  }
-  return(c(day_counter-1,sum(infection_status == 1),sum(infection_status == 2)))
-}
-
 
 #------#
 #  SI  #
@@ -79,54 +37,6 @@ sim_SI <- function(network_el, beta, intxn_per_day, days) {
     }
 
     day_counter = day_counter+1
-    if (sum(infection_status%%2) == 0) break
-  }
-  return(c(day_counter-1,sum(infection_status == 1),sum(infection_status == 2)))
-}
-
-
-#-------#
-#  STD  #
-#-------#
-
-sim_STD <- function(network_el, beta, intxn_per_day, days, MM, MF, FM, FF) {
-
-  n = network_el[1,4]
-  e = network_el[1,5]
-  cdata <- network_el[,1:2]
-  sexes <- network_el[1:n,6]
-
-  infection_status <- c(rep(1,n))
-  index_infected <- sample(1:n, 1)
-  infection_status[index_infected] = 2
-
-  day_counter <- 0
-  while(day_counter <= days) {
-
-    int_counter <- 0
-    while(int_counter <= intxn_per_day*n) {
-
-      selected_edge <- sample(1:e,1)
-
-      if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
-        sex_ind = 0; beta_mod = 0
-        if (infection_status[cdata[selected_edge,1]] == 2) {
-          sex_ind <- (sexes[cdata[selected_edge,1]] * 2) - sexes[cdata[selected_edge,2]] + 1
-        } else {
-          sex_ind <- (sexes[cdata[selected_edge,2]] * 2) - sexes[cdata[selected_edge,1]] + 1
-        }
-
-        switch(sex_ind, {beta_mod <- beta * MF}, {beta_mod <- beta * MM}, {beta_mod <- beta * FF}, {beta_mod <- beta * FM})
-
-        if (beta_mod >= runif(1,0,1)) {
-          infection_status[cdata[selected_edge,1:2]] = 2
-        }
-      }
-
-      int_counter <- sum(int_counter,1)
-    }
-
-    day_counter <- sum(day_counter,1)
     if (sum(infection_status%%2) == 0) break
   }
   return(c(day_counter-1,sum(infection_status == 1),sum(infection_status == 2)))
