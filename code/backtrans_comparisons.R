@@ -227,7 +227,7 @@ for (n in c(10, 30, 50)) {
   }
 }
 
-tiff("Figure5.tiff", height = 21, width = 18, units = 'cm', compression = "lzw", res = 300)
+tiff("figures/Figure5.tiff", height = 21, width = 18, units = 'cm', compression = "lzw", res = 300)
 
 par(oma=c(0, 0, 0, 0))
 layout(matrix(c(1,1,2,3,4,4), 3, 2, byrow = TRUE))
