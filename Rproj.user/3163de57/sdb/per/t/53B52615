@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1492534519760.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "53B52615",
+    "lastKnownWriteTime" : 32088624094183540,
+    "last_content_update" : 1492534519760,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "B787411F",
+        "caption" : "SI_max_output",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=SI_max_output&cache_key=B787411F",
+        "displayedObservations" : 118000,
+        "environment" : "",
+        "object" : "SI_max_output",
+        "preview" : 0,
+        "totalObservations" : 118000,
+        "variables" : 2
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
