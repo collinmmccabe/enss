@@ -43,10 +43,10 @@ for(i in 6:max_n) {
   net0[[i]] <- matrix(data=1, nrow=i, ncol=i)
   diag(net0[[i]]) <- 0
   net0[[i]] <- network(net0[[i]])
-  
+
   netud[[i]] <- graph.edgelist(as.edgelist(net0[[i]])[,], directed=FALSE)
   networkud[[i]] <- cbind(unique(get.edgelist(netud[[i]])), weight=1, n_nodes=c(vcount(netud[[i]]),rep(NA,ecount(netud[[i]])-1)), n_edges=c(ecount(netud[[i]])/2,rep(NA,ecount(netud[[i]])-1)))
-  
+
   netd[[i]] <- graph.edgelist(as.edgelist(net0[[i]])[,], directed=TRUE)
   sexd[[i]] <- rep(1, vcount(netd[[i]]))
   sexd[[i]][unlist(by(1:length(sexd[[i]]), sexd[[i]], function(x) sample(x, ceiling(length(x)/2), FALSE)))] <- 2
@@ -61,35 +61,35 @@ for(i in 6:max_n) {
 #------#
 
 sim_SI <- function(networkud, beta, intxn_per_day, days) {
-  
+
   n = networkud[1,4]
   e = networkud[1,5]
   cdata <- networkud[,1:2]
-  
+
   infection_status <- c(rep(1,n))
   index_infected <- sample(1:n, 1)
   infection_status[index_infected] = 2
-  
+
   # run simulation for specified number of days
   day_counter <- 0
   while(day_counter <= days) {
-    
+
     # Do this x times/day where x is number of interactions per day
     int_counter <- 0
     while(int_counter <= intxn_per_day*n) {
-      
+
       selected_edge <- sample(1:e,1)
-      
+
       # sum of infected (2) and susceptible (1) individuals is the only combination and will create a sum of three, so is used to identify potential transmission networks
       if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
-        if (beta >= runif(1,0,1)) { 
+        if (beta >= runif(1,0,1)) {
           infection_status[cdata[selected_edge,1:2]] = 2
         }
       }
-      
+
       int_counter <- sum(int_counter,1)
     }
-    
+
     day_counter <- sum(day_counter,1)
     if (sum(infection_status%%2) == 0) break
   }
@@ -101,35 +101,35 @@ sim_SI <- function(networkud, beta, intxn_per_day, days) {
 #-------#
 
 sim_SIS <- function(networkud, beta, gamma, intxn_per_day, days) {
-  
+
   n = networkud[1,4]
   e = networkud[1,5]
   cdata <- networkud[,1:2]
-  
+
   infection_status <- c(rep(1,n))
   index_infected <- sample(1:n, 1)
   infection_status[index_infected] = 2
-  
+
   # run simulation for specified number of days
   day_counter <- 0
   while(day_counter <= days) {
-    
+
     # Do this x times/day where x is number of interactions per day
     int_counter <- 0
     while(int_counter <= intxn_per_day*n) {
-      
+
       selected_edge <- sample(1:e,1)
-      
+
       # sum of infected (2) and susceptible (1) individuals is the only combination and will create a sum of three, so is used to identify potential transmission networks
       if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
-        if (beta >= runif(1,0,1)) { 
+        if (beta >= runif(1,0,1)) {
           infection_status[cdata[selected_edge,1:2]] = 2
         }
       }
-      
+
       int_counter <- sum(int_counter,1)
     }
-    
+
     # at end of day, all 2's become 3's at a rate of gamma [i.e. if gamma is less than runif]; j should pick from indexes of all 2s
     for (j in which(infection_status %in% 2)) { # *** CM: This one was a little tricky, but I had to use a method to get the indices out of the infection_status vector. ***
       if (gamma >= runif(1,0,1)) { # *** CM: Same problem with greater than/less than... ***
@@ -147,26 +147,26 @@ sim_SIS <- function(networkud, beta, gamma, intxn_per_day, days) {
 #-------#
 
 sim_STD <- function(networkd, beta, intxn_per_day, days, MM, MF, FM, FF) {
-  
+
   n = networkd[1,4]
   e = networkd[1,5]
   cdata <- networkd[,1:2]
   sexes <- networkd[1:n,6]
-  
+
   infection_status <- c(rep(1,n))
   index_infected <- sample(1:n, 1)
   infection_status[index_infected] = 2
-  
+
   # run simulation for specified number of days
   day_counter <- 0
   while(day_counter <= days) {
-    
+
     # Do this x times/day where x is number of interactions per day
     int_counter <- 0
     while(int_counter <= intxn_per_day*n) {
-      
+
       selected_edge <- sample(1:e,1)
-      
+
       # sum of infected (2) and susceptible (1) individuals is the only combination and will create a sum of three, so is used to identify potential transmission networks
       if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
         sex_ind = 0; beta_mod = 0
@@ -175,17 +175,17 @@ sim_STD <- function(networkd, beta, intxn_per_day, days, MM, MF, FM, FF) {
         } else {
           sex_ind <- (sexes[cdata[selected_edge,2]] * 2) - sexes[cdata[selected_edge,1]] + 1
         }
-        
+
         switch(sex_ind, {beta_mod <- beta * MF}, {beta_mod <- beta * MM}, {beta_mod <- beta * FF}, {beta_mod <- beta * FM})
-        
-        if (beta_mod >= runif(1,0,1)) { 
+
+        if (beta_mod >= runif(1,0,1)) {
           infection_status[cdata[selected_edge,1:2]] = 2
         }
       }
-      
+
       int_counter <- sum(int_counter,1)
     }
-    
+
     day_counter <- sum(day_counter,1)
     if (sum(infection_status%%2) == 0) break
   }
@@ -197,51 +197,51 @@ sim_STD <- function(networkd, beta, intxn_per_day, days, MM, MF, FM, FF) {
 #-------#
 
 sim_SIR <- function(networkud, beta, gamma, intxn_per_day, days) {
-  
+
   n = networkud[1,4]
   e = networkud[1,5]
   cdata <- networkud[,1:2]
-  
+
   infection_status <- c(rep(1,n))
   index_infected <- sample(1:n, 1)
   infection_status[index_infected] = 2
-  
+
   max_infected <- 1
-  
+
   # run simulation for specified number of days
   day_counter <- 0
   while(day_counter <= days) {
-    
+
     # Do this x times/day where x is number of interactions per day
     int_counter <- 0
     while(int_counter <= intxn_per_day*n) {
-      
+
       selected_edge <- sample(1:e,1)
-      
+
       # sum of infected (2) and susceptible (1) individuals is the only combination and will create a sum of three, so is used to identify potential transmission networks
       if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
-        if (beta >= runif(1,0,1)) { 
+        if (beta >= runif(1,0,1)) {
           infection_status[cdata[selected_edge,1:2]] = 2
         }
       }
-      
+
       int_counter <- sum(int_counter,1)
     }
-    
+
     # at end of day, all 2's become 3's at a rate of gamma [i.e. if gamma is less than runif]; j should pick from indexes of all 2s
     for (j in which(infection_status %in% 2)) { # *** CM: This one was a little tricky, but I had to use a method to get the indices out of the infection_status vector. ***
       if (gamma >= runif(1,0,1)) { # *** CM: Same problem with greater than/less than... ***
         infection_status[j] = 3
       }
     }
-    
+
     curr_infected <- sum(infection_status == 2)
     if (curr_infected > max_infected) {
       max_infected <- curr_infected
     }
-    
+
     day_counter <- sum(day_counter,1)
-    
+
     if (sum(infection_status%%2) == n) break
   }
   return(c(day_counter-1,sum(infection_status == 1),sum(infection_status == 2),sum(infection_status == 3),max_infected))
@@ -380,15 +380,15 @@ percents=c(0.3, 0.5, 0.7)
 gnm_g<-list(NA)
 gnm_el<-list(NA)
 for (n in nodes) {
-  
+
   p_gnm_g<-list(NA)
   p_gnm_el<-list(NA)
   for (p in percents) {
-    
+
     m = round((n^2 - n)*p/2)
     g<-list(NA)
     el<-list(NA)
-    
+
     for(i in 1:100) {
       g[[i]] <- sample_gnm(n, m, directed=FALSE, loops=FALSE)
       el[[i]] <- unique(get.edgelist(g[[i]]))
@@ -396,12 +396,12 @@ for (n in nodes) {
       el[[i]] <- cbind(el[[i]],n_nodes=n)
       el[[i]] <- cbind(el[[i]],n_edges=m)
     }
-    
+
     x=p*100
     p_gnm_g[[x]]<-g
     p_gnm_el[[x]]<-el
   }
-  
+
   gnm_g[[n]]<-p_gnm_g
   gnm_el[[n]]<-p_gnm_el
 }
@@ -430,7 +430,7 @@ SI_er<-list(NA)
 SIS_er<-list(NA)
 SIR_er<-list(NA)
 for (n in nodes) {
-  
+
   SI_tmp<-list(NA)
   SIS_tmp<-list(NA)
   SIR_tmp<-list(NA)
@@ -439,18 +439,18 @@ for (n in nodes) {
     clusterExport(cl=cl, varlist=c("gnm_el", "sim_SIR", "beta", "gamma", "intxn_per_day", "days", "iters"))
     SIR_tmp[[p]]<-parLapply(cl, c(1:100),function(x,b,g,i,d,it) print(replicate(it, (sim_SIR(gnm_el[[n]][[p]][[x]], b, g, i, d)))),b=beta,g=gamma,i=intxn_per_day,d=days,it=iters)
     stopCluster(cl)
-    
+
     cl <- makeCluster(no_cores, type="FORK")
     clusterExport(cl=cl, varlist=c("gnm_el", "sim_SIS", "beta", "gamma", "intxn_per_day", "SIS_days", "iters"))
     SIS_tmp[[p]]<-parLapply(cl, c(1:100),function(x,b,g,i,d,it) print(replicate(it, (sim_SIS(gnm_el[[n]][[p]][[x]], b, g, i, d)))),b=beta,g=gamma,i=intxn_per_day,d=SIS_days,it=iters)
     stopCluster(cl)
-    
+
     cl <- makeCluster(no_cores, type="FORK")
     clusterExport(cl=cl, varlist=c("gnm_el", "sim_SI", "beta", "intxn_per_day", "days", "iters"))
     SI_tmp[[p]]<-parLapply(cl, c(1:100),function(x,b,i,d,it) print(replicate(it, (sim_SI(gnm_el[[n]][[p]][[x]], b, i, d)))),b=beta,i=intxn_per_day,d=days,it=iters)
     stopCluster(cl)
   }
-  
+
   SI_er[[n]]<-SI_tmp
   SIS_er[[n]]<-SIS_tmp
   SIR_er[[n]]<-SIR_tmp
@@ -481,3 +481,5 @@ model_01<- lmodel2(y ~ x)
 # Bring in real networks from primate work
 # Simulate disease spread on them to get estimates of effective network size
 # run richness PGLS models with effective network size vs group size, see if effective net size fits better
+
+test <- 42
