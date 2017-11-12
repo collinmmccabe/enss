@@ -6,7 +6,7 @@ Author: Collin McCabe
 Maintainer: Collin McCabe <collinmichaelmccabe@gmail.com>
 Description: This package simulates the spread of pathogens via SI and SIR on idealized,
     maximally complete social networks for comparison to empirical social networks.
-License: GPL-3 + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: igraph,
