@@ -28,18 +28,21 @@ sim_SI_unif <- function(network_el, beta, days) {
   day_counter <- 0
   while(day_counter <= days) {
 
+    # this is here instead of int counter for unif
     tmp_infection_status <- infection_status
     for(selected_edge in 1:e) {
 
       if (sum(infection_status[cdata[selected_edge,1:2]]) == 3) {
         if (beta >= runif(1,0,1)) {
-          tmp_infection_status[cdata[selected_edge,1:2]] = 2
+          tmp_infection_status[cdata[selected_edge,1:2]] = 2 # tmp infection status instead of normal for unif
         }
       }
 
     }
 
+    # this is here instead of int adder in regular
     infection_status <- tmp_infection_status
+
     day_counter = day_counter+1
     if (sum(infection_status%%2) == 0) break
   }

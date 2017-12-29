@@ -28,6 +28,7 @@ sim_SIR <- function(network_el, beta, gamma, intxn_per_day, days) {
   index_infected <- sample(1:n, 1)
   infection_status[index_infected] = 2
 
+# only SIR
   max_infected <- 1
 
   day_counter <- 0
@@ -47,12 +48,14 @@ sim_SIR <- function(network_el, beta, gamma, intxn_per_day, days) {
       int_counter <- sum(int_counter,1)
     }
 
+    # only SIR
     for (j in which(infection_status %in% 2)) {
       if (gamma >= runif(1,0,1)) {
         infection_status[j] = 3
       }
     }
 
+    #only in SIR
     curr_infected <- sum(infection_status == 2)
     if (curr_infected > max_infected) {
       max_infected <- curr_infected
@@ -60,7 +63,10 @@ sim_SIR <- function(network_el, beta, gamma, intxn_per_day, days) {
 
     day_counter <- sum(day_counter,1)
 
+    # 0 in SI, n in SIR
     if (sum(infection_status%%2) == n) break
   }
+
+  # returns different info for SI and SIR
   return(c(day_counter-1,sum(infection_status == 1),sum(infection_status == 2),sum(infection_status == 3),max_infected))
 }

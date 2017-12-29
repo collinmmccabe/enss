@@ -19,9 +19,9 @@ sim_SI_w <- function(network_el, beta, intxn_per_day, days) {
 
   n = network_el[1,4]
   e = network_el[1,5]
-  cdata <- network_el[,1:3]
-  e <- cdata[,3]
-  edgeweight_sum <- sum(e)
+  cdata <- network_el[,1:3] # 1:2 in regular, 1:3 in weighted
+  e <- cdata[,3] # only in weighted
+  edgeweight_sum <- sum(e) # only in weighted
 
   infection_status <- c(rep(1,n))
   index_infected <- sample(1:n, 1)
@@ -33,6 +33,7 @@ sim_SI_w <- function(network_el, beta, intxn_per_day, days) {
     int_counter <- 0
     while(int_counter <= intxn_per_day*n) {
 
+      # weighted does this instead of sample
       r <- runif(1,0,edgeweight_sum)
       for (i in 1:length(e)) {
         if (sum(e[1:i]) > r) {
