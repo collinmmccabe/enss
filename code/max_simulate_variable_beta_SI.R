@@ -18,7 +18,7 @@ nmin=6; nmax=120
 #----------------#
 
 Effective_g_max <- readRDS("Effective_g_max2")
-Effective_el_max <- readRDS("Effective_el_max2")
+Effective_el_max <- readRDS("./sims_maximal/max2/Effective_el_max2")
 
 intxn_per_day = 3
 days = 10000
