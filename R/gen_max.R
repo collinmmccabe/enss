@@ -15,13 +15,15 @@ gen_max <- function(nmin, nmax) {
 
   for(i in nmin:nmax) {
 
-    net0[[i]] <- matrix(data = 1, nrow = i, ncol = i)
-    diag(net0[[i]]) <- 0
-    net0[[i]] <- network(net0[[i]])
+    index <- (i - nmin + 1)
 
-    max_g[[i]] <- graph.edgelist(as.edgelist(net0[[i]])[,], directed = FALSE)
+    net0[[index]] <- matrix(data = 1, nrow = i, ncol = i)
+    diag(net0[[index]]) <- 0
+    net0[[index]] <- network(net0[[index]])
 
-    max_el[[i]] <- cbind(unique(get.edgelist(max_g[[i]])), weight = 1, n_nodes = c(vcount(max_g[[i]]), rep(NA, ecount(max_g[[i]]) / 2 - 1)), n_edges = c(ecount(max_g[[i]]) / 2, rep(NA, ecount(max_g[[i]]) / 2 - 1)))
+    max_g[[index]] <- graph.edgelist(as.edgelist(net0[[index]])[,], directed = FALSE)
+
+    max_el[[index]] <- cbind(unique(get.edgelist(max_g[[index]])), weight = 1, n_nodes = c(vcount(max_g[[index]]), rep(NA, ecount(max_g[[index]]) / 2 - 1)), n_edges = c(ecount(max_g[[index]]) / 2, rep(NA, ecount(max_g[[index]]) / 2 - 1)))
 
   }
 
