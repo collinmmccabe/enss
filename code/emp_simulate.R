@@ -1,34 +1,23 @@
-#----------------#
-#   Simulation   #
-#  on Empirical  #
-#    Networks    #
-#----------------#
+#####################################
+# Effective Network Size Simulation #
+#               - - -               #
+#   Calculate SI/SIR spread time    #
+#       for empirical graphs        #
+#               - - -               #
+#        CM McCabe & CL Nunn        #
+#####################################
 
 # Unweighted Simulations
 
 Effective_el_emp <- readRDS("./sims_empirical/Effective_el_emp")
 
-intxn_per_day = 3
-days = 10000
-iters = 1000
-beta = 0.1
-gamma = 0.1
-
 cat('\n', 'SI empirical models:', '\n', '\n')
-cl <- makeCluster(no_cores, type="FORK")
-clusterExport(cl=cl, varlist=c("Effective_el_emp", "sim_SI", "beta", "intxn_per_day", "days", "iters"))
-SI_emp <- pblapply(c(1:length(Effective_el_emp)), function(x,b,i,d,it) { print(replicate(it, (sim_SI(Effective_el_emp[[x]],b,i,d)))) }, b=beta, i=intxn_per_day, d=days, it=iters, cl=cl)
-stopCluster(cl)
+SI_emp <- clust_sim_SI(network_el = Effective_el_emp, beta = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
+saveRDS(SI_emp, file="./data/Effective_SI_emp"); rm(SI_emp)
 
 cat('\n', 'SIR empirical models:', '\n', '\n')
-cl <- makeCluster(no_cores, type="FORK")
-clusterExport(cl=cl, varlist=c("Effective_el_emp", "sim_SIR", "beta", "gamma", "intxn_per_day", "days", "iters"))
-SIR_emp <- pblapply(c(1:length(Effective_el_emp)), function(x,b,g,i,d,it) { print(replicate(it, (sim_SIR(Effective_el_emp[[x]],b,g,i,d)))) }, b=beta, g=gamma, i=intxn_per_day, d=days, it=iters, cl=cl)
-stopCluster(cl)
-
-saveRDS(SI_emp,file="./sims_empirical/Effective_SI_emp")
-saveRDS(SIR_emp,file="./sims_empirical/Effective_SIR_emp")
-rm(SI_emp, SIR_emp)
+SIR_emp <- clust_sim_SIR(network_el = Effective_el_emp, beta = 0.1, gamma = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
+saveRDS(SIR_emp, file="./data/Effective_SIR_emp"); rm(SIR_emp)
 
 #------------------------------------------------
 
@@ -36,10 +25,10 @@ rm(SI_emp, SIR_emp)
 
 Effective_el_emp_w <- readRDS("./sims_empirical/Effective_el_emp_w")
 
-SI_emp_w <- lapply(c(1:length(Effective_el_emp_w)), function(x,b,i,d,it) { print(replicate(it, (sim_SI_w(Effective_el_emp_w[[x]],b,i,d)))) }, b=beta, i=intxn_per_day, d=days, it=iters)
+cat('\n', 'Weighted SI empirical models:', '\n', '\n')
+SI_emp_w <- clust_sim_SI_w(network_el = Effective_el_emp_w, beta = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
+saveRDS(SI_emp_w, file="./data/Effective_SI_emp_w"); rm(SI_emp_w)
 
-SIR_emp_w <- lapply(c(1:length(Effective_el_emp_w)), function(x,b,g,i,d,it) { print(replicate(it, (sim_SIR_w(Effective_el_emp_w[[x]],b,g,i,d)))) }, b=beta, g=gamma, i=intxn_per_day, d=days, it=iters)
-
-saveRDS(SI_emp_w,file="./sims_empirical/Effective_SI_emp_w")
-saveRDS(SIR_emp_w,file="./sims_empirical/Effective_SIR_emp_w")
-rm(SI_emp_w, SIR_emp_w)
+cat('\n', 'Weighted SIR empirical models:', '\n', '\n')
+SIR_emp_w <- clust_sim_SIR_w(network_el = Effective_el_emp_w, beta = 0.1, gamma = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
+saveRDS(SIR_emp_w, file="./data/Effective_SIR_emp_w"); rm(SIR_emp_w)

@@ -1,40 +1,37 @@
-#---------------#
-#  Simulations  #
-#    on ERGs    #
-#---------------#
+#####################################
+# Effective Network Size Simulation #
+#               - - -               #
+#   Calculate SI/SIR spread time    #
+#       for Erdos-Renyi graphs      #
+#               - - -               #
+#        CM McCabe & CL Nunn        #
+#####################################
 
-# use Latin hypercube/orthogonal sampling to select a representative subset?
+Effective_el_erg <- readRDS("./sims_ERG/Effective_el_erg")
 
-Effective_g_erg <- readRDS("Effective_g_erg")
-Effective_el_erg <- readRDS("Effective_el_erg")
-
-SI_erg<-list(NA)
-SIR_erg<-list(NA)
+SI_erg <- list(NA); SIR_erg <- list(NA)
+nodes <- c(10, 20, 30); percents <- c(0.15, 0.25, 0.35)
 
 for (n in nodes) {
 
-  SI_tmp<-list(NA)
-  SIR_tmp<-list(NA)
+  SI_erg.tmp <- list(NA)
+  SIR_erg.tmp <- list(NA)
 
   for (p in (percents*100)) {
 
+    Effective_el_erg.tmp <- Effective_el_erg[[n]][[p]]
+
     cat('\n', 'SI ERG models:', '\n', 'nodes = ', n, ', percent = ', p, '\n', '\n')
-    cl <- makeCluster(no_cores, type="FORK")
-    clusterExport(cl=cl, varlist=c("Effective_el_erg", "sim_SI", "beta", "intxn_per_day", "days", "iters"))
-    SI_tmp[[p]] <- pblapply(c(1:samps), function(x,b,i,d,it) { print(replicate(it, (sim_SI(Effective_el_erg[[n]][[p]][[x]],b,i,d)))) }, b=beta, i=intxn_per_day, d=days, it=iters, cl=cl)
-    stopCluster(cl)
+    SI_erg.tmp[[p]] <- clust_sim_SI(network_el = Effective_el_erg.tmp, beta = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
 
     cat('\n', 'SIR ERG models:', '\n', 'nodes = ', n, ', percent = ', p, '\n', '\n')
-    cl <- makeCluster(no_cores, type="FORK")
-    clusterExport(cl=cl, varlist=c("Effective_el_erg", "sim_SIR", "beta", "gamma", "intxn_per_day", "days", "iters"))
-    SIR_tmp[[p]] <- pblapply(c(1:samps), function(x,b,g,i,d,it) { print(replicate(it, (sim_SIR(Effective_el_erg[[n]][[p]][[x]],b,g,i,d)))) }, b=beta, g=gamma, i=intxn_per_day, d=days, it=iters, cl=cl)
-    stopCluster(cl)
+    SIR_erg.tmp[[p]] <- clust_sim_SIR(network_el = Effective_el_erg.tmp, beta = 0.1, gamma = 0.1, intxn_per_day = 3, days = 10000, iters = 1000, free_threads = 1)
   }
 
-  SI_erg[[n]]<-SI_tmp
-  SIR_erg[[n]]<-SIR_tmp
+  SI_erg[[n]] <- SI_erg.tmp
+  SIR_erg[[n]] <- SIR_erg.tmp
 }
 
-saveRDS(SI_erg,file="Effective_SI_erg")
-saveRDS(SIR_erg,file="Effective_SIR_erg")
-rm(SI_erg, SIR_erg, n, p)
+saveRDS(SI_erg, file="./data/Effective_SI_erg")
+saveRDS(SIR_erg, file="./data/Effective_SIR_erg")
+rm(SI_erg, SI_erg.tmp, SIR_erg, SIR_erg.tmp, n, nodes, p, percents, Effective_el_erg.tmp)
