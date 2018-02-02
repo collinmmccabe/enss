@@ -6,7 +6,7 @@
 #' @param nodes an integer or vector of integers that indicate the size(s) of networks to be generated; if a list is supplied, graphs will be generated independently for each network size provided in the vector
 #' @param percents a numeric or vector of numerics that indicate the percent(s) of possible edges present in networks to be generated; if a list is supplied, graphs will be generated independently for each percent provided in the vector
 #'
-#' @return list wirh 2 elements, the first of which (g) contains sociomatrices for each random graph, and the second of which (el) contains edgelists for those same graphs
+#' @return list with 2 elements, the first of which (g) contains sociomatrices for each random graph, and the second of which (el) contains edgelists for those same graphs
 #' @export
 #'
 #' @examples
@@ -48,5 +48,4 @@ gen_erg <- function(samples, nodes, percents) {
   }
 
   return(list(g = gnm_g, el = gnm_el))
-
 }
