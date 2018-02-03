@@ -44,56 +44,6 @@ gg1.rma + ggtitle("Relationship between log-transformed Network Size and Outbrea
 
 #------------------------------------------------
 
-Effective_SIS_max <- readRDS("Effective_SIS_max2")
-
-SIS_max_output_eq <- data.frame(eq=Effective_SIS_max[[3]][3,which(Effective_SIS_max[[3]][1,]==50)]/6, n=3)
-for(i in 4:nmax) {
-  tmp <- data.frame(eq=Effective_SIS_max[[i]][3,which(Effective_SIS_max[[i]][1,]==50)]/i, n=i)
-  SIS_max_output_eq <- rbind(SIS_max_output_eq, tmp)
-}
-
-summary(lm(n ~ eq, data=SIS_max_output_eq))
-SISmod2 <- lmodel2(n ~ eq, data=SIS_max_output_eq, range.y = "relative", range.x = "relative")
-
-
-SIS_max_output_ext <- data.frame(days=Effective_SIS_max[[3]][1,which(Effective_SIS_max[[3]][1,]<50)], n=3)
-for(i in 4:nmax) {
-  tmp <- data.frame(days=Effective_SIS_max[[i]][1,which(Effective_SIS_max[[i]][1,]<50)], n=i)
-  SIS_max_output_ext <- rbind(SIS_max_output_ext, tmp)
-}
-
-sismaxlm <- lm(n ~ days, data=SIS_max_output_ext); summary(sismaxlm)
-
-gg2.ols <- ggplot(SIS_max_output_ext,aes(x=days,y=n)) + theme_classic() + geom_bin2d(bins=40) + geom_abline(slope = sismaxlm$coefficients[2], intercept = sismaxlm$coefficients[1], col="red", size=2) + annotate(geom="text", x=35, y=180, label="y = 104.69 - 2.57 * x\nAdj. R-sq. = 0.031", color="black")
-gg2.ols + ggtitle("Relationship between Network Size and Extinction Time\nfrom 197,000 SIS Simulations on Maximally-complete Networks, with OLS Trendline") + labs(x="Extinction time (days)", y="Network size")
-
-SISmod2 <- lmodel2(log(n)~days, data=SIS_max_output_ext, range.y = "relative", range.x = "relative")
-
-gg2.rma <- ggplot(SIS_max_output_ext,aes(x=days,y=log(n)))+ theme_classic() + geom_bin2d(bins=23) + geom_abline(slope = SISmod2$regression.results$Slope[4], intercept = SISmod2$regression.results$Intercept[4], col="red", size=2) + annotate(geom="text", x=35, y=4, label="y = 5.41 - 0.60 * x\nR-sq. = 0.106", color="black")
-gg2.rma + ggtitle("Relationship between log-transformed Network Size and Extinction Time\nfrom 197,000 SIS Simulations on Maximally-complete Networks, with RMA Trendline") + labs(x="Extinction time (days)", y="log [ Network size ]")
-
-#------------------------------------------------
-
-Effective_STD_max <- readRDS("Effective_STD_max2")
-
-STD_max_output <- data.frame(days=Effective_STD_max[[3]][1,which(Effective_STD_max[[3]][2,]==0)], n=3)
-for(i in 4:nmax) {
-  tmp <- data.frame(days=Effective_STD_max[[i]][1,which(Effective_STD_max[[i]][2,]==0)], n=i)
-  STD_max_output <- rbind(STD_max_output, tmp)
-}
-
-stdmaxlm<-lm(n ~ days, data=STD_max_output); summary(stdmaxlm)
-
-gg3.ols <- ggplot(STD_max_output,aes(x=days,y=n)) + theme_classic() + geom_bin2d(bins=40) + geom_abline(slope = stdmaxlm$coefficients[2], intercept = stdmaxlm$coefficients[1], col="red", size=2) + annotate(geom="text", x=75, y=7, label="y = 36.08 + 3.50 * x\nAdj. R-sq. = 0.195", color="black")
-gg3.ols + ggtitle("Relationship between Network Size and Outbreak Duration\nfrom 197,000 STD Simulations on Maximally-complete Networks, with OLS Trendline") + labs(x="Outbreak duration (days)", y="Network size")
-
-STDmod2 <- lmodel2(log(n)~days, data=STD_max_output, range.y = "relative", range.x = "relative")
-
-gg3.rma <- ggplot(STD_max_output,aes(x=days,y=log(n))) + theme_classic() + geom_bin2d(bins=17) + geom_abline(slope = STDmod2$regression.results$Slope[4], intercept = STDmod2$regression.results$Intercept[4], col="red", size=2) + annotate(geom="text", x=75, y=2, label="y = 0.62 + 0.20 * x\nR-sq. = 0.240", color="black")
-gg3.rma + ggtitle("Relationship between log-transformed Network Size and Outbreak Duration\nfrom 93,000 STD Simulations on Maximally-complete Networks, with RMA Trendline") + labs(x="Outbreak duration (days)", y="log [ Network size ]")
-
-#------------------------------------------------
-
 # Effective_SIR_max <- readRDS("./sims_maximal/Effective_SIR_max_unif")
 Effective_SIR_max <- readRDS("./sims_maximal/max2/Effective_SIR_max2")
 
