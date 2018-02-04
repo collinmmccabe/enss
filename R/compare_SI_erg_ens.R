@@ -1,4 +1,4 @@
-compare_SI_erg_ens <- function(sim_erg_output, sim_max_output, predict_SI_output) {
+compare_SI_erg_ens <- function(sim_erg_output, sim_max_output, n_min) {
 
   nodes <- which(!sapply(sim_erg_output, is.null) & !is.na(sim_erg_output))
 
@@ -6,6 +6,7 @@ compare_SI_erg_ens <- function(sim_erg_output, sim_max_output, predict_SI_output
 
   samples <- length(sim_erg_output[[nodes[1]]][[percents[1]]])
 
+  predict_SI_output <- predict_SI_max(sim_max_output, n_min)
 
   SI_erg_output <- data.frame(obs_mu = NA, obs_sd = NA, exp_mu = NA, exp_sd = NA, kst_D = NA, kst_p = NA, n = NA, p = NA, samp = NA)
 
@@ -17,8 +18,8 @@ compare_SI_erg_ens <- function(sim_erg_output, sim_max_output, predict_SI_output
 
         tmp.obs <- sim_erg_output[[n]][[p]][[i]][1,which(sim_erg_output[[n]][[p]][[i]][2,] == 0)]
 
-        # need to fix how max models reference number of nodes
-        tmp.exp <- sim_max_output[[estimate_backtrans_ens(mean(tmp.obs), predict_SI_output, sim_max_output)]][1,]
+        # need to fix how max models reference number of nodes - this works, but it is messy
+        tmp.exp <- sim_max_output[[estimate_backtrans_ens(mean(tmp.obs), predict_SI_output, sim_max_output) - n_min + 1]][1,]
 
         tmp.kst <- ks.test(jitter(tmp.obs), jitter(tmp.exp))
 
