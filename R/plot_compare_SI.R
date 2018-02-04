@@ -4,7 +4,7 @@ plot_compare_SI <- function(sim_erg_output, sim_max_output, max_nmin, n, p, samp
 
   compare_SI_output <- compare_SI_erg_ens(sim_erg_output, sim_max_output, max_nmin)
 
-  par(oma=c(0, 0, 0, 0))
+  par(oma = c(0, 0, 0, 0))
 
   layout(matrix(c(1, 1, 2, 3, 4, 4), 3, 2, byrow = TRUE))
 
