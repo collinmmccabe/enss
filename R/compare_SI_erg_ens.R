@@ -18,7 +18,7 @@ compare_SI_erg_ens <- function(sim_erg_output, sim_max_output, predict_SI_output
         tmp.obs <- sim_erg_output[[n]][[p]][[i]][1,which(sim_erg_output[[n]][[p]][[i]][2,] == 0)]
 
         # need to fix how max models reference number of nodes
-        tmp.exp <- sim_max_output[[estimate_ens(mean(tmp.obs), predict_SI_output)]][1,]
+        tmp.exp <- sim_max_output[[estimate_backtrans_ens(mean(tmp.obs), predict_SI_output, sim_max_output)]][1,]
 
         tmp.kst <- ks.test(jitter(tmp.obs), jitter(tmp.exp))
 
