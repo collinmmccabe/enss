@@ -1,11 +1,11 @@
-Package: ens
+Package: enss
 Type: Package
-Title: Simulation of Effective Network Size in R
+Title: Effective Network Size Simulation in R
 Version: 0.1.0
 Author: Collin McCabe
 Maintainer: Collin McCabe <collinmichaelmccabe@gmail.com>
 Description: This package simulates the spread of pathogens via SI and SIR on idealized,
-    maximally complete social networks for comparison to empirical social networks.
+    maximally complete social networks for comparison to ERGs and empirical social networks.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
