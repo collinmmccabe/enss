@@ -12,3 +12,5 @@ saveRDS(emp$g,file="./data/Effective_g_emp")
 saveRDS(emp$el,file="./data/Effective_el_emp")
 saveRDS(emp$el_w,file="./data/Effective_el_emp_w")
 saveRDS(emp$spp,file="./data/Effective_spp_emp")
+
+manuscript_species <- c(1,3,8,9,10,12,14,16,20,21,22,23,30,26,29,13,34,38,39,41)
