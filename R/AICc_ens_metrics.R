@@ -20,8 +20,15 @@ AICc_ens_metrics <- function(ens, metrics) {
   AICc_vector <- c(NA)
   for(i in 1:length(allModelsResults)) {
 
-    AICc_vector[i] <- AICc(allModelsResults[[i]]) - (2 * sum(regMat[i,] == TRUE))
+    AICc_vector[i] <- AICc(allModelsResults[[i]])
   }
 
-  return(allModelsResults[[which.min(AICc_vector)]])
+  AICc_returns <- list(NA); k <- 1
+  for(j in which(AICc_vector < AICc_vector[which.min(AICc_vector)] + 2)) {
+
+    AICc_returns[[k]] <- allModelsResults[[j]]
+    k <- k + 1
+  }
+
+  return(AICc_returns)
 }

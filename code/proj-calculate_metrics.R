@@ -12,7 +12,7 @@ ens_SIR <- c(8, 22, 18, 10, 13, 21, 13, 16, 17, 26, 26, 15, 35, 22, 13, 11, 21, 
 ens_SI_w <- c(9, 75, 43, 9, 15, 57, 43, 20, 20, 53, 79, 70, 37, 32, 16, 12, 27, 16, 10, 16)
 ens_SIR_w <- c(7, 23, 18, 9, 12, 26, 13, 15, 16, 26, 28, 17, 30, 22, 12, 9, 18, 11, 9, 10)
 
-AICc_ens_metrics(ens_SI, unweighted_metrics)
-AICc_ens_metrics(ens_SIR, unweighted_metrics)
-AICc_ens_metrics(ens_SI_w, weighted_metrics)
-AICc_ens_metrics(ens_SIR_w, weighted_metrics)
+SI_AICc <- AICc_ens_metrics(ens_SI, unweighted_metrics)
+SIR_AICc <- AICc_ens_metrics(ens_SIR, unweighted_metrics)
+SI_w_AICc <- AICc_ens_metrics(ens_SI_w, weighted_metrics)
+SIR_w_AICc <- AICc_ens_metrics(ens_SIR_w, weighted_metrics)
