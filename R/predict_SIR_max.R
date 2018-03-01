@@ -1,5 +1,7 @@
 predict_SIR_max <- function(sim_output, n_min) {
 
+  require(lmodel2)
+
   SIR_max_output <- data.frame(days = NA, peak = NA, n = NA)
 
   for(i in 1:length(sim_output)) {
