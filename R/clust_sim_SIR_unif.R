@@ -1,3 +1,16 @@
+#' clust_sim_SIR_unif
+#'
+#' @param network_el
+#' @param beta
+#' @param gamma
+#' @param days
+#' @param iters
+#' @param free_threads
+#'
+#' @return
+#' @export
+#'
+#' @examples
 clust_sim_SIR_unif <- function(network_el, beta, gamma, days, iters, free_threads = 1) {
 
   if (.Platform$OS.type == "unix") {

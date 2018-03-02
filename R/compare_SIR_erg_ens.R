@@ -1,3 +1,13 @@
+#' compare_SIR_erg_ens
+#'
+#' @param sim_erg_output
+#' @param sim_max_output
+#' @param n_min
+#'
+#' @return
+#' @export
+#'
+#' @examples
 compare_SIR_erg_ens <- function(sim_erg_output, sim_max_output, n_min) {
 
   nodes <- which(!sapply(sim_erg_output, is.null) & !is.na(sim_erg_output))

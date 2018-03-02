@@ -1,3 +1,16 @@
+#' clust_sim_SI_w
+#'
+#' @param network_el
+#' @param beta
+#' @param intxn_per_day
+#' @param days
+#' @param iters
+#' @param free_threads
+#'
+#' @return
+#' @export
+#'
+#' @examples
 clust_sim_SI_w <- function(network_el, beta, intxn_per_day, days, iters, free_threads = 1) {
 
   if (.Platform$OS.type == "unix") {

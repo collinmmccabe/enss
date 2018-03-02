@@ -1,3 +1,16 @@
+#' plot_compare_SIR
+#'
+#' @param sim_erg_output
+#' @param sim_max_output
+#' @param max_nmin
+#' @param n
+#' @param p
+#' @param samp
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot_compare_SIR <- function(sim_erg_output, sim_max_output, max_nmin, n, p, samp) {
 
   predict_SIR_output <- predict_SIR_max(sim_max_output, max_nmin)

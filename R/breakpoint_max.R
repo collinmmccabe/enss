@@ -1,3 +1,9 @@
-breakpoint_max <- function(x) {
+#' breakpoint_max
+#'
+#' @return
+#' @export
+#'
+#' @examples
+breakpoint_max <- function() {
 
 }

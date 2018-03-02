@@ -1,3 +1,13 @@
+#' plot_predict
+#'
+#' @param SI_max_sim_output
+#' @param SIR_max_sim_output
+#' @param n_min
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot_predict <- function(SI_max_sim_output, SIR_max_sim_output, n_min) {
 
   SI_max_output <- data.frame(days = NA, n = NA)

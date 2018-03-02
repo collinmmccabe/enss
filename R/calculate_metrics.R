@@ -1,3 +1,11 @@
+#' calculate_metrics
+#'
+#' @param emp_el
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calculate_metrics <- function(emp_el) {
 
   require(tnet); require(igraph); require(sna)

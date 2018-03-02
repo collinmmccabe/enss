@@ -1,3 +1,12 @@
+#' AICc_ens_metrics
+#'
+#' @param ens
+#' @param metrics
+#'
+#' @return
+#' @export
+#'
+#' @examples
 AICc_ens_metrics <- function(ens, metrics) {
 
   require(MuMIn)

@@ -1,3 +1,13 @@
+#' estimate_backtrans_ens
+#'
+#' @param x
+#' @param predict_output
+#' @param sim_output
+#'
+#' @return
+#' @export
+#'
+#' @examples
 estimate_backtrans_ens <- function(x, predict_output, sim_output) {
 
   mod2resid = rep(NA, nrow(sim_output))

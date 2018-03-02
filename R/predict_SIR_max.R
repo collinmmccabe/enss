@@ -1,3 +1,12 @@
+#' predict_SIR_max
+#'
+#' @param sim_output
+#' @param n_min
+#'
+#' @return
+#' @export
+#'
+#' @examples
 predict_SIR_max <- function(sim_output, n_min) {
 
   require(lmodel2)

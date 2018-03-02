@@ -1,3 +1,12 @@
+#' predict_SI_max
+#'
+#' @param sim_output
+#' @param n_min
+#'
+#' @return
+#' @export
+#'
+#' @examples
 predict_SI_max <- function(sim_output, n_min) {
 
   SI_max_output <- data.frame(days = NA, n = NA)
