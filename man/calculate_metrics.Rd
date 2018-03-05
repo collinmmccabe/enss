@@ -13,10 +13,10 @@ calculate_metrics(emp_el)
 a dataframe of network metrics, where each row represents an edgelist fed into the function, and the first column represents the index of those edgelists. Columns 2-7 represent (in this order): number of nodes, leading eigenvector modularity, weighted distance, weighted diameter, generalized clustering coefficient, and eigenvector centralization of each network.
 }
 \description{
-calculate_metrics calculates for each edgelist in a list of edgelists the folowing
+calculate_metrics calculates for each edgelist in a list of edgelists the following
 network-level metrics: number of nodes, leading eigenvector modularity, weighted
 distance, weighted diameter, generalized clustering coefficient, and eigenvector
-centralization
+centralization.
 }
 \examples{
 emp_el_w <- readRDS("./data/Effective_el_emp_w")

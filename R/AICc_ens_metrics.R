@@ -16,8 +16,6 @@
 #' SI_AICc <- AICc_ens_metrics(ens_SI, unweighted_metrics)
 AICc_ens_metrics <- function(ens, metrics) {
 
-  require(MuMIn)
-
   # Code adapted from ryouready.wordpress.com/2009/02/06/r-calculating-all-possible-linear-regression-models-for-a-given-set-of-predictors/
 
   regressors <- colnames(metrics[-1])
@@ -36,7 +34,7 @@ AICc_ens_metrics <- function(ens, metrics) {
   AICc_vector <- c(NA)
   for(i in 1:length(allModelsResults)) {
 
-    AICc_vector[i] <- AICc(allModelsResults[[i]])
+    AICc_vector[i] <- MuMIn::AICc(allModelsResults[[i]])
   }
 
   AICc_returns <- list(NA); k <- 1
