@@ -2,16 +2,21 @@ Package: enss
 Type: Package
 Title: Effective Network Size Simulation
 Version: 0.1.0
-Author: Collin McCabe
+Author: Collin McCabe <collinmichaelmccabe@gmail.com>, Charles Nunn <clnunn@duke.edu>
 Maintainer: Collin McCabe <collinmichaelmccabe@gmail.com>
 Description: This package simulates the spread of pathogens via SI and SIR on idealized,
     maximally complete social networks for comparison to ERGs and empirical social networks.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: igraph,
-    devtools
+Imports: 
+    parallel,
+    pbapply,
+    igraph,
+    tnet,
+    MuMIn
 RoxygenNote: 6.0.1
 Suggests: knitr,
+    devtools,
     rmarkdown
 VignetteBuilder: knitr
