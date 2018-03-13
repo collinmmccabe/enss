@@ -1,10 +1,15 @@
 #' estimate_backtrans_ens
 #'
-#' @param x
-#' @param predict_output
-#' @param sim_output
+#' estimate_backtrans_ens takes the outbreak time for a given network and compares
+#'   this to the relationship between group size and outbreak time on maximally to
+#'   predict effective network size, with a correction for back-transforming from
+#'   log-scale.
 #'
-#' @return
+#' @param x the number of days that a disease took to break out through the observed network
+#' @param predict_model model output from either 'predict_SI_max' or 'predict_SIR_max'
+#' @param sim_output the output from running sim_SI(R)
+#'
+#' @return integer predicted effective network size
 #' @export
 #'
 #' @examples

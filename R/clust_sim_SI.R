@@ -13,7 +13,10 @@
 #' @param free_threads the number of computing threads to be left unused by
 #'   simulations (e.g. for doing other tasks while simulations are running.)
 #'
-#' @return
+#' @return a matrix with the same number of columns as argument 'iters', where
+#'   each column represents an iteration, and each row represents 1: number of
+#'   days simulation went for, 2: final number of susceptible individuals,
+#'   3: final number of infected individuals, in that order.
 #' @export
 #'
 #' @examples
