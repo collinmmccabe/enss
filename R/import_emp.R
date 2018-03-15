@@ -23,7 +23,7 @@ import_emp <- function(folder) {
   for(i in 1:length(input_names)) {
     tmp <- read.csv(paste(folder, input_names[i], sep = ""), header = FALSE)
 
-    emp_g[[i]] <- graph_from_edgelist(as.matrix(tmp[,1:2]), weight = tmp[,3], directed = FALSE)
+    emp_g[[i]] <- graph_from_edgelist(as.matrix(tmp[,1:2]), directed = FALSE)
 
     emp_el[[i]] <- cbind(unique(get.edgelist(emp_g[[i]])), weight = 1, n_nodes = c(vcount(emp_g[[i]]), rep(NA, ecount(emp_g[[i]]) / 2 - 1)), n_edges = c(ecount(emp_g[[i]]) / 2, rep(NA, ecount(emp_g[[i]]) / 2 - 1)))
 
