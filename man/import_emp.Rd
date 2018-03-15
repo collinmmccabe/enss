@@ -10,8 +10,14 @@ import_emp(folder)
 \item{folder}{The path to a folder with (only) edgelists inside of it}
 }
 \value{
-list with 4 elements, the first (g) contains sociomatrices for each empirical graph, the second (el) contains edgelists for those same graphs, the third (el_w) contains weighted edglists of those same graphs, and the fourth (spp) contains a dataframe of the filenames of each edgelist imported by this function, to later be filled in by the user with the species names for each edgelist
+list with 4 elements, the first (g) contains sociomatrices for each
+  empirical graph, the second (el) contains edgelists for those same graphs,
+  the third (el_w) contains weighted edglists of those same graphs, and the
+  fourth (spp) contains a dataframe of the filenames of each edgelist imported
+  by this function, to later be filled in by the user with the species names
+  for each edgelist
 }
 \description{
-import_emp imports empirical edgelists within a single folder and converts them into a format intelligible to the rest of the functions in enss
+import_emp imports empirical edgelists within a single folder and converts
+  them into a format intelligible to the rest of the functions in enss
 }

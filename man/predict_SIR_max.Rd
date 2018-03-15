@@ -4,11 +4,19 @@
 \alias{predict_SIR_max}
 \title{predict_SIR_max}
 \usage{
-predict_SIR_max(sim_output, n_min)
+predict_SIR_max(sim_max_output, n_min)
 }
 \arguments{
-\item{n_min}{}
+\item{sim_max_output}{simulation output from any of the sim_SIR functions (including
+sim_SIR_unif and sim_SIR_w) in enss using maximally complete graphs}
+
+\item{n_min}{the minimum network size in the set of maximally complete graphs used
+to generate sim_max_output in the first argument}
+}
+\value{
+lmodel2-type regression model object
 }
 \description{
-predict_SIR_max
+predict_SIR_max generates a model II regression prediction for the relationship between
+  outbreak time and maximally complete network size for SIR transmission simulations
 }

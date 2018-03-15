@@ -4,16 +4,21 @@
 \alias{gen_max}
 \title{gen_max}
 \usage{
-gen_max(nmin, nmax)
+gen_max(n_min, n_max)
 }
 \arguments{
-\item{nmin}{An integer of the lowest number of nodes to be generated as a maximally complete graph}
+\item{n_min}{An integer of the lowest number of nodes to be generated as a maximally
+complete graph}
 
-\item{nmax}{An integer of the highest number of nodes to be generated as a maximally complete graph}
+\item{n_max}{An integer of the highest number of nodes to be generated as a maximally
+complete graph}
 }
 \value{
-list wirh 2 elements, the first of which (g) contains sociomatrices for each maximally complete graph, and the second of which (el) contains edgelists for those same graphs
+list wirh 2 elements, the first of which (g) contains sociomatrices for each
+  maximally complete graph, and the second of which (el) contains edgelists for those
+  same graphs
 }
 \description{
-gen_max generates a set of maximally complete graphs from size "nmin" to "nmax", provided in the function call
+gen_max generates a set of maximally complete graphs from size "n_min" to "n_max",
+  provided in the function call
 }
