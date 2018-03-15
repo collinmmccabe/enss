@@ -1,8 +1,21 @@
-plot_compare_SI <- function(sim_erg_output, sim_max_output, max_nmin, n, p, samp) {
+#' plot_compare_SI
+#'
+#' @param sim_erg_output
+#' @param sim_max_output
+#' @param n_min
+#' @param n
+#' @param p
+#' @param samp
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plot_compare_SI <- function(sim_erg_output, sim_max_output, n_min, n, p, samp) {
 
-  predict_SI_output <- predict_SI_max(sim_max_output, max_nmin)
+  predict_SI_output <- predict_SI_max(sim_max_output, n_min)
 
-  compare_SI_output <- compare_SI_erg_ens(sim_erg_output, sim_max_output, max_nmin)
+  compare_SI_output <- compare_SI_erg_ens(sim_erg_output, sim_max_output, n_min)
 
   par(oma = c(0, 0, 0, 0))
 

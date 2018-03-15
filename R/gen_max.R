@@ -1,11 +1,11 @@
 #' gen_max
 #'
-#' gen_max generates a set of maximally complete graphs from size "nmin" to "nmax",
+#' gen_max generates a set of maximally complete graphs from size "n_min" to "n_max",
 #'   provided in the function call
 #'
-#' @param nmin An integer of the lowest number of nodes to be generated as a maximally
+#' @param n_min An integer of the lowest number of nodes to be generated as a maximally
 #'   complete graph
-#' @param nmax An integer of the highest number of nodes to be generated as a maximally
+#' @param n_max An integer of the highest number of nodes to be generated as a maximally
 #'   complete graph
 #'
 #' @return list wirh 2 elements, the first of which (g) contains sociomatrices for each
@@ -14,13 +14,13 @@
 #' @export
 #'
 #' @examples
-gen_max <- function(nmin, nmax) {
+gen_max <- function(n_min, n_max) {
 
   max_g <- list(NA); max_el <- list(NA)
 
-  for(i in nmin:nmax) {
+  for(i in n_min:n_max) {
 
-    index <- (i - nmin + 1)
+    index <- (i - n_min + 1)
 
     max_g[[index]] <- igraph::make_full_graph(i)
 
