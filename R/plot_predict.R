@@ -1,29 +1,29 @@
 #' plot_predict
 #'
-#' @param SI_max_sim_output
-#' @param SIR_max_sim_output
+#' @param SI_sim_max_output
+#' @param SIR_sim_max_output
 #' @param n_min
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_predict <- function(SI_max_sim_output, SIR_max_sim_output, n_min) {
+plot_predict <- function(SI_sim_max_output, SIR_sim_max_output, n_min) {
 
   SI_max_output <- data.frame(days = NA, n = NA)
-  for(i in 1:length(SI_max_sim_output)) {
-    tmp <- data.frame(days = SI_max_sim_output[[i]][1,which(SI_max_sim_output[[i]][2,] == 0)], n = n_min + i - 1)
+  for(i in 1:length(SI_sim_max_output)) {
+    tmp <- data.frame(days = SI_sim_max_output[[i]][1,which(SI_sim_max_output[[i]][2,] == 0)], n = n_min + i - 1)
     SI_max_output <- rbind(SI_max_output, tmp)
   }
 
   SIR_max_output <- data.frame(days = NA, peak = NA, n = NA)
-  for(i in 1:length(SIR_max_sim_output)) {
-    tmp <- data.frame(days = SIR_max_sim_output[[i]][1,which(SIR_max_sim_output[[i]][4,] == i)], peak = SIR_max_sim_output[[i]][5,which(SIR_max_sim_output[[i]][4,] == i)], n = n_min + i - 1)
+  for(i in 1:length(SIR_sim_max_output)) {
+    tmp <- data.frame(days = SIR_sim_max_output[[i]][1,which(SIR_sim_max_output[[i]][4,] == i)], peak = SIR_sim_max_output[[i]][5,which(SIR_sim_max_output[[i]][4,] == i)], n = n_min + i - 1)
     SIR_max_output <- rbind(SIR_max_output, tmp)
   }
 
-  SImod2 <- predict_SI_max(SI_max_sim_output, n_min)
-  SIRmod2 <- predict_SIR_max(SIR_max_sim_output, n_min)
+  SImod2 <- predict_SI_max(SI_sim_max_output, n_min)
+  SIRmod2 <- predict_SIR_max(SIR_sim_max_output, n_min)
 
   gg1.rma <- ggplot(SI_max_output,aes(x=days,y=log(n))) + theme_classic() + geom_bin2d(bins=16) + geom_abline(slope = SImod2$regression.results$Slope[4], intercept = SImod2$regression.results$Intercept[4], col="red", size=2) + annotate(geom="text", x=27, y=1.3, label="y = 0.85 + 0.21 * x\nR-sq. = 0.470", color="black")
   gg1.rma + ggtitle("Relationship between log-transformed Network Size and Outbreak Duration\nfrom 77,000 SI Simulations on Maximally-complete Networks, with RMA Trendline") + labs(x="Outbreak duration (days)", y="log [ Network size ]")
