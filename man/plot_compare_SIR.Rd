@@ -4,7 +4,7 @@
 \alias{plot_compare_SIR}
 \title{plot_compare_SIR}
 \usage{
-plot_compare_SIR(sim_erg_output, sim_max_output, max_nmin, n, p, samp)
+plot_compare_SIR(sim_erg_output, sim_max_output, n_min, n, p, samp)
 }
 \arguments{
 \item{samp}{}

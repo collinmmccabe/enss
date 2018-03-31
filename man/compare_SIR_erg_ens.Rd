@@ -7,8 +7,25 @@
 compare_SIR_erg_ens(sim_erg_output, sim_max_output, n_min)
 }
 \arguments{
-\item{n_min}{}
+\item{sim_erg_output}{output of SIR simulations over all Erdos-Renyi random graphs,
+preferably in the format of a nested list, where the first level corresponds to
+the number of nodes, the second level to percent completion of ties, and the final
+to the sample number}
+
+\item{sim_max_output}{output of SIR simulations over all maximally complete graphs}
+
+\item{n_min}{minimum number of nodes in the maximally complete graphs}
+}
+\value{
+a data frame where each row corresponds to a row in sim_erg_output, and the
+  columns represent (in this order): mean observed (Erdos-Renyi) value, standard deviation of the
+  observed values, mean expected (effective network size prediction) value, standard
+  deviation of expected values, Kolmogorov-Smirnov (K-S) test D-statistic, K-S test
+  p-value, number of nodes in observed network, percent of ties present in observed
+  network, and the sample number of the observed network (within its node counts and
+  percent completion)
 }
 \description{
-compare_SIR_erg_ens
+compare_SIR_erg_ens calculates multiple metrics of comparison between maximally
+  complete networks and Erdos-Renyi random graphs for clustered SIR simulations
 }

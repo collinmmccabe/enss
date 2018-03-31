@@ -4,7 +4,7 @@
 \alias{plot_predict}
 \title{plot_predict}
 \usage{
-plot_predict(SI_max_sim_output, SIR_max_sim_output, n_min)
+plot_predict(SI_sim_max_output, SIR_sim_max_output, n_min)
 }
 \arguments{
 \item{n_min}{}

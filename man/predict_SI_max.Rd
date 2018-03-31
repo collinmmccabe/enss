@@ -4,11 +4,19 @@
 \alias{predict_SI_max}
 \title{predict_SI_max}
 \usage{
-predict_SI_max(sim_output, n_min)
+predict_SI_max(sim_max_output, n_min)
 }
 \arguments{
-\item{n_min}{}
+\item{sim_max_output}{simulation output from any of the sim_SI functions (including
+sim_SI_unif and sim_SI_w) in enss using maximally complete graphs}
+
+\item{n_min}{the minimum network size in the set of maximally complete graphs used
+to generate sim_max_output in the first argument}
+}
+\value{
+lmodel2-type regression model object
 }
 \description{
-predict_SI_max
+predict_SI_max generates a model II regression prediction for the relationship between
+  outbreak time and maximally complete network size for SI transmission simulations
 }

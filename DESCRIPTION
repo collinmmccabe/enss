@@ -13,6 +13,7 @@ Imports:
     parallel,
     pbapply,
     igraph,
+    lmodel2,
     tnet,
     MuMIn,
     plotrix,

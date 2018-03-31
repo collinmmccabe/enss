@@ -16,6 +16,11 @@ integer predicted effective network size
 }
 \description{
 estimate_ens takes the outbreak time for a given network and compares this to the
+<<<<<<< HEAD
   relationship between group size and outbreak time on maximally to predict
   effective network size
+=======
+  relationship between group size and outbreak time on maximally complete networks to
+  predict effective network size
+>>>>>>> b0f7554d2f1d14748f977be0efd1192cb7547194
 }

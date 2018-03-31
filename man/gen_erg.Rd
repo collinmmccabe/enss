@@ -7,15 +7,24 @@
 gen_erg(samples, nodes, percents)
 }
 \arguments{
-\item{samples}{the integer number of independent random graphs to be generated for each combination of nodes and percents}
+\item{samples}{the integer number of independent random graphs to be generated for
+each combination of nodes and percents}
 
-\item{nodes}{an integer or vector of integers that indicate the size(s) of networks to be generated; if a list is supplied, graphs will be generated independently for each network size provided in the vector}
+\item{nodes}{an integer or vector of integers that indicate the size(s) of networks
+to be generated; if a list is supplied, graphs will be generated independently
+for each network size provided in the vector}
 
-\item{percents}{a numeric or vector of numerics that indicate the percent(s) of possible edges present in networks to be generated; if a list is supplied, graphs will be generated independently for each percent provided in the vector}
+\item{percents}{a numeric or vector of numerics that indicate the percent(s) of
+possible edges present in networks to be generated; if a list is supplied,
+graphs will be generated independently for each percent provided in the vector}
 }
 \value{
-list with 2 elements, the first of which (g) contains sociomatrices for each random graph, and the second of which (el) contains edgelists for those same graphs
+list with 2 elements, the first of which (g) contains sociomatrices for
+  each random graph, and the second of which (el) contains edgelists for those
+  same graphs
 }
 \description{
-gen_erg generates a set of Erdos-Renyi exponential random graphs of size "samples", repeated for each combination of the number of "nodes" and "percents" of edges present, provided in the function call
+gen_erg generates a set of Erdos-Renyi exponential random graphs of size "samples",
+  repeated for each combination of the number of "nodes" and "percents" of edges
+  present, provided in the function call
 }

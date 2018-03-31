@@ -1,10 +1,22 @@
 #' compare_SI_erg_ens
 #'
-#' @param sim_erg_output
-#' @param sim_max_output
-#' @param n_min
+#' compare_SI_erg_ens calculates multiple metrics of comparison between maximally
+#'   complete networks and Erdos-Renyi random graphs for clustered SI simulations
 #'
-#' @return
+#' @param sim_erg_output output of SI simulations over all Erdos-Renyi random graphs,
+#'   preferably in the format of a nested list, where the first level corresponds to
+#'   the number of nodes, the second level to percent completion of ties, and the final
+#'   to the sample number
+#' @param sim_max_output output of SI simulations over all maximally complete graphs
+#' @param n_min minimum number of nodes in the maximally complete graphs
+#'
+#' @return a data frame where each row corresponds to a row in sim_erg_output, and the
+#'   columns represent (in this order): mean observed (Erdos-Renyi) value, standard deviation of the
+#'   observed values, mean expected (effective network size prediction) value, standard
+#'   deviation of expected values, Kolmogorov-Smirnov (K-S) test D-statistic, K-S test
+#'   p-value, number of nodes in observed network, percent of ties present in observed
+#'   network, and the sample number of the observed network (within its node counts and
+#'   percent completion)
 #' @export
 #'
 #' @examples
