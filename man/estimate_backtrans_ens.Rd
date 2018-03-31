@@ -7,8 +7,18 @@
 estimate_backtrans_ens(x, predict_output, sim_output)
 }
 \arguments{
-\item{sim_output}{}
+\item{x}{the number of days that a disease took to break out through the observed network}
+
+\item{sim_output}{the output from running sim_SI(R)}
+
+\item{predict_model}{model output from either 'predict_SI_max' or 'predict_SIR_max'}
+}
+\value{
+integer predicted effective network size
 }
 \description{
-estimate_backtrans_ens
+estimate_backtrans_ens takes the outbreak time for a given network and compares
+  this to the relationship between group size and outbreak time on maximally to
+  predict effective network size, with a correction for back-transforming from
+  log-scale.
 }
