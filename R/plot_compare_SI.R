@@ -14,7 +14,7 @@ plot_compare_SI <- function(sim_erg_output, sim_max_output, max_nmin, n, p, samp
 
   par(mar=c(4, 2, 2, 0))
 
-  multhist(SIlist, xlab = "Outbreak duration (days)", main="(A) Representative comparison of histograms for outbreak durations")
+  plotrix::multhist(SIlist, xlab = "Outbreak duration (days)", main="(A) Representative comparison of histograms for outbreak durations")
   # --------
 
   par(mar=c(4, 5, 2, 1))
